@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "fir-management-b88b8": {
+      "hosting": {
+        "firebase-auth-management": [
+          "fir-management-b88b8"
+        ]
+      }
+    }
+  }
+}
