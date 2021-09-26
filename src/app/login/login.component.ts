@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -21,13 +23,41 @@ export class LoginComponent implements OnInit {
     ])
   });;
 
-  constructor() { }
+  constructor(private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
 
   loginWithEmailAndPassword(): void {
+    const email = this.loginForm.get('email')?.value;
+    const password = this.loginForm.get('password')?.value;
 
+    this.authService.signInWithEmailAndPassword(email, password).then(
+      (user) => {
+        this.router.navigate(['home']);
+      }
+    ).catch(
+      (error) => {
+        alert('Authentification Problem');
+        // master error message with the link bellow
+        // https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithemailandpassword
+      }
+    );
+  }
+
+  loginWithGoogle(): void {
+    this.authService.signInWithGoogle().then(
+      (user) => {
+        this.router.navigate(['home']);
+      }
+    ).catch(
+      (error) => {
+        alert('Authentification Problem');
+        // master error message with the link bellow
+        // https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithredirect
+      }
+    );
   }
 
 }
