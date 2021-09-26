@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -21,13 +23,42 @@ export class SignUpComponent implements OnInit {
     ])
   });
 
-  constructor() { }
+  constructor(private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
 
   signUpWithEmailAndPassword(): void {
+    const email = this.signupForm.get('email')?.value;
+    const password = this.signupForm.get('password')?.value;
 
+    this.authService.signUpWithEmailAndPassword(email, password).then(
+      (user) => {
+        this.router.navigate(['home']);
+      }
+    ).catch(
+      error => {
+        alert('Authentification Problem');
+        // master error message with the link bellow
+        // https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#createuserwithemailandpassword
+      }
+    );
+  }
+
+  signUpWithGoogle(): void {
+    this.authService.signInWithGoogle().then(
+      (user) => {
+        this.router.navigate(['home']);
+      }
+    )
+    .catch(
+      (error) => {
+        alert('Authentification Problem');
+        // master error message with the link bellow
+        // https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#signinwithredirect
+      }
+    );
   }
 
 }
