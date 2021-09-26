@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   signInWithProvider(provider: any): Promise<any> {
-    return this.angularFireAuth.signInWithPopup(provider);
+    return this.angularFireAuth.signInWithRedirect(provider);
   }
 
   signInWithGoogle(): Promise<any> {
