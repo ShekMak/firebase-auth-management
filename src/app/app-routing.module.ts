@@ -29,7 +29,11 @@ const routes: Routes = [
       },
       {
         path: 'sign-up',
-        component: SignUpComponent
+        component: SignUpComponent,
+        canActivate: [AngularFireAuthGuard],
+        data: {
+          authGuardPipe: redirectLoggedInToHome
+        }
       },
       {
         path: 'home',
