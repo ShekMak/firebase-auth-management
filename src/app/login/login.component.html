@@ -1,13 +1,21 @@
-<form class="radius-form">
+<form class="radius-form" [formGroup]="loginForm" (ngSubmit)="loginWithEmailAndPassword()">
     <h2>Login</h2>
     <div class="auth-form">
         <div class="auth-form-item">
             <label for="email">Email</label>
-            <input type="email" name="email" id="email">
+            <input type="email" name="email" id="email" formControlName='email'>
+            <p *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+                <span *ngIf="loginForm.get('email')?.errors?.required">Email is required !</span>
+                <span *ngIf="loginForm.get('email')?.errors?.email">Email is invalid !</span>
+            </p>
         </div>
         <div class="auth-form-item">
             <label for="password">Password</label>
-            <input type="password" name="password" id="password">
+            <input type="password" name="password" id="password" formControlName="password">
+            <p *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+                <span *ngIf="loginForm.get('password')?.errors?.required">Password is required.</span>
+                <span *ngIf="loginForm.get('password')?.errors?.minlength">Password must have more than 5 characters.</span>
+            </p>
         </div>
         <button class="auth-form-button">Login</button>
     </div>

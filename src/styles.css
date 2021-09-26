@@ -50,6 +50,14 @@ form h2 {
     border: 1px solid black;
 }
 
+.auth-form-item input.ng-invalid.ng-dirty, .auth-form-item input.ng-invalid.ng-touched {
+    border-color: red;
+}
+
+.auth-form-item p {
+    color: red;
+}
+
 button {
     display: flex;
     justify-content: center;
@@ -78,13 +86,13 @@ form, button.auth-button, button.auth-form-button {
     border-radius: .5rem;
 }
 
-form p {
+form > p {
     display: flex;
     justify-content: flex-end;
     margin-top: 1rem;
 }
 
-form p a {
+form > p a {
     margin-left: 5px;
     color: rgb(47, 47, 82);
 }
